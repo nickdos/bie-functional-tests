@@ -5,7 +5,8 @@ const searchUrl = baseUrl + '/search?q=Acacia&rows=20';
 const taxonId = 'https://id.biodiversity.org.au/taxon/apni/51471290';
 const acaciaUrl = baseUrl + '/species/' + taxonId;
 
-// test.use({ userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' });
+// Needed for BIE WAF on GH actions servers
+test.use({ userAgent: 'GH Actions Bot 1.0' });
 
 test('Acacia Mill - names check', async ({ page }) => {
   // Search for Acacia 
