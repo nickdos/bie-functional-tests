@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 const fs = require('fs');
-const baseUrl = 'https://bie-test.ala.org.au';
-const searchUrl = 'https://bie-test.ala.org.au/search';
+const baseUrl = 'https://bie.ala.org.au';
+const searchUrl = baseUrl + '/search';
 
-test.use({ userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' });
+// test.use({ userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' });
 
 test('BIE home page has title', async ({ page }) => {
   await page.goto(baseUrl);
