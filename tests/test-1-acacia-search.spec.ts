@@ -66,7 +66,8 @@ test('Acacia search results', async ({ page }) => {
   await expect(page.locator('.result-thumbnail img').first()).toBeAttached();
 });
 
-test('Acacia download test', async ({ page }) => {
+test('Acacia download test', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'Doesn\'t work for WebKit on Linux');
   // Search for Acacia 
   await page.goto(searchUrl + '?q=Acacia&rows=20');
 
