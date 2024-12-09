@@ -1,5 +1,6 @@
-# bie-functional-tests
+# bie-functional-tests &nbsp;&nbsp; ![test status](https://github.com/nickdos/bie-functional-tests/actions/workflows/playwright.yml/badge.svg)
 [Playwright](https://playwright.dev/) tests for `ala-bie-hub` front end
+
 
 ### Getting started
 
