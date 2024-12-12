@@ -34,7 +34,7 @@ test('Acacia Mill - hero images', async ({ page }) => {
   const thumbCount = await page.locator('.taxon-summary-thumb').count();
   await expect(thumbCount).toBeGreaterThanOrEqual(2);
   // Check for the thumnail image
-  const firstThumb = page.locator('.taxon-summary-thumb').first();
+  const firstThumb = await page.locator('.taxon-summary-thumb').first();
   // Get specific inline property
   const imageUrl = await firstThumb.evaluate((el) => {
     return el.style.backgroundImage;
