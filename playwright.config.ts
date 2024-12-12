@@ -27,7 +27,7 @@ export default defineConfig({
   timeout: 60000,
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+    baseURL: 'https://bie-test.ala.org.au',
     // Allow downloads for all tests
     acceptDownloads: true,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */

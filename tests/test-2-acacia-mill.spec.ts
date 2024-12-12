@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
+import exp from 'constants';
 
-const baseUrl = 'https://bie-test.ala.org.au';
-const searchUrl = baseUrl + '/search?q=Acacia&rows=20';
+// const baseUrl = 'https://bie-test.ala.org.au';
+const searchUrl = '/search?q=Acacia&rows=20';
 const taxonId = 'https://id.biodiversity.org.au/taxon/apni/51471290';
-const acaciaUrl = baseUrl + '/species/' + taxonId;
+const acaciaUrl = '/species/' + taxonId;
 
 // Needed for BIE WAF on GH actions servers
 test.use({ userAgent: 'GH Actions Bot 1.0' });
@@ -32,10 +33,14 @@ test('Acacia Mill - hero images', async ({ page }) => {
   // page.waitForSelector('.taxon-summary-thumb', { timeout: 30000 });
   const thumbCount = await page.locator('.taxon-summary-thumb').count();
   await expect(thumbCount).toBeGreaterThanOrEqual(2);
-  // const imageSrc = 'url(\"https://images.ala.org.au/image/proxyImageThumbnail?imageId=ba541e92-7803-44fe-aa74-1de8066cab31\")'
-  const imageSrc = 'url(\"https://images-test.ala.org.au/image/proxyImageThumbnail?imageId=07bf481a-b8ce-485d-9d32-bfb48c8d4df9\")'
-  // url(\"https://images-test.ala.org.au/image/proxyImageThumbnail?imageId=07bf481a-b8ce-485d-9d32-bfb48c8d4df9\")
-  await expect(page.locator('.taxon-summary-thumb').first()).toHaveCSS('background-image', imageSrc);
+  // Check for the thumnail image
+  const firstThumb = page.locator('.taxon-summary-thumb').first();
+  // Get specific inline property
+  const imageUrl = await firstThumb.evaluate((el) => {
+    return el.style.backgroundImage;
+  });
+
+  expect(imageUrl).toContain('image/proxyImageThumbnail');
 });
 
 test('Acacia Mill - Wikipedia content', async ({ page }) => {

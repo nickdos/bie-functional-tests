@@ -1,21 +1,20 @@
 import { test, expect } from '@playwright/test';
 
 const fs = require('fs');
-const baseUrl = 'https://bie-test.ala.org.au';
-const searchUrl = baseUrl + '/search';
+const searchUrl = '/search';
 
 // Needed for BIE WAF on GH actions servers
 test.use({ userAgent: 'GH Actions Bot 1.0' });
 
 test('BIE home page has title', async ({ page }) => {
-  await page.goto(baseUrl);
+  await page.goto('/');
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Search | Atlas of Living Australia/);
 });
 
 test('autocomplete suggestion test', async ({ page }) => {
-  await page.goto(baseUrl);
+  await page.goto('/');
 
   // Type text into the search input.
   await page.fill('#search', 'acacia');
@@ -30,7 +29,7 @@ test('autocomplete suggestion test', async ({ page }) => {
 });
 
 test('search button test', async ({ page }) => {
-  await page.goto(baseUrl);
+  await page.goto('/');
 
   // Type text into the search input.
   await page.fill('#search', 'Acacia');
