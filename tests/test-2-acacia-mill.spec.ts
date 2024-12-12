@@ -30,14 +30,28 @@ test('Acacia Mill - API URL', async ({ page }) => {
 
 test('Acacia Mill - hero images', async ({ page }) => {
   await page.goto(acaciaUrl);
-  // page.waitForSelector('.taxon-summary-thumb', { timeout: 30000 });
+
+  // Wait for at least one thumbnail to be present and visible
+  await page.waitForSelector('.taxon-summary-thumb', {
+    state: 'visible',
+    timeout: 30000
+  });
+
+  // Wait a bit to ensure background images are loaded
+  await page.waitForFunction(() => {
+    const thumb = document.querySelector('.taxon-summary-thumb');
+    return thumb && window.getComputedStyle(thumb).backgroundImage !== '';
+  }, { timeout: 30000 });
+
   const thumbCount = await page.locator('.taxon-summary-thumb').count();
   await expect(thumbCount).toBeGreaterThanOrEqual(2);
-  // Check for the thumnail image
-  const firstThumb = await page.locator('.taxon-summary-thumb').first();
-  // Get specific inline property
+
+  // Check for the thumbnail image
+  const firstThumb = page.locator('.taxon-summary-thumb').first();
+
+  // Wait specifically for this element's background image
   const imageUrl = await firstThumb.evaluate((el) => {
-    return el.style.backgroundImage;
+    return window.getComputedStyle(el).backgroundImage;
   });
 
   expect(imageUrl).toContain('image/proxyImageThumbnail');
